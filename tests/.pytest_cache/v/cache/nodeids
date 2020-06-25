@@ -1,0 +1,6 @@
+[
+  "test_calendar.py::test_all_provinces",
+  "test_calendar.py::test_unique_province_name_code_pairs",
+  "test_calendar.py::test_unique_local_name_code_pairs",
+  "test_calendar.py::test_three_holiday_types"
+]
