@@ -4,9 +4,14 @@ A lightweight module that provides easy access to all national, regional and loc
 
 ## Installation
 
-Just clone the repo to your local project. It's light weight and already includes the holidays for 2020 cashed into the module.
+Just clone the repo to your local project and make sure you install the Python dependencies with
 
-If you want to re-scrape the data, just do
+```
+pip install -r requirements.txt
+```
+
+
+The module already includes the holidays for 2020 cashed into it.If you want to re-scrape the data, just do:
 
 ```python
 from pyvacas import HolidaysCalendar
