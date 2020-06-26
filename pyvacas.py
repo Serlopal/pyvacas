@@ -31,8 +31,23 @@ class HolidaysCalendar:
 		else:
 			return self.read_cash()
 
-	def get_holidays(self, provinces=None, locations=None):
-		return self.holidays
+	def get_holidays(self, provinces=None, municipalities=None):
+		filtered_holidays = self.holidays.copy()
+		# **********	province filter		**********
+		# if provinces are not a list but a string, put it into a list
+		if provinces:
+			if not isinstance(provinces, list):
+				provinces = [provinces]
+			filtered_holidays = filtered_holidays[filtered_holidays["province_name"].isin(provinces)]
+
+		# **********	municipality filter		**********
+		# if municipalities are not a list but a string, put it into a list
+		if municipalities:
+			if not isinstance(municipalities, list):
+				municipalities = [municipalities]
+			filtered_holidays = filtered_holidays[filtered_holidays["local_name"].isin(municipalities)]
+
+		return filtered_holidays
 
 	def write_cash(self, data):
 		data.to_pickle(self.holiday_data_path)
@@ -130,7 +145,7 @@ class HolidaysCalendar:
 		return pd.DataFrame(holidays)
 
 	def list_provinces(self):
-		return list(self.holidays["province_name"].unique())
+		return self.holidays["province_name"].unique().tolist()
 
-	def list(self):
-		pass
+	def list_municipalities(self):
+		return self.holidays["local_name"].unique().tolist()
