@@ -23,9 +23,24 @@ holidays = cal.load_holidays(re_scrape=True)
 
 ## Usage
 
+You can fetch all available holidays for Spain using ```get_holidays``` without any extra arguments
+
 ```python
 from pyvacas import HolidaysCalendar
 
 cal = HolidaysCalendar()
 holidays = cal.get_holidays()
 ```
+
+Or check out available provinces and municipalities using ```list_provinces``` or ```list_municipalities``` and provide them to
+```get_holidays``` to retrieve only the holidays for the desired locations.
+
+```python
+from pyvacas import HolidaysCalendar
+
+cal = HolidaysCalendar()
+holidays = cal.get_holidays(provinces="Madrid")
+```
+
+You can provide a single item using a string or multiple ones in the form of lists. If you choose to provide both provinces and municipalities,
+the holidays will be filtered so that they are coincident for both of them.

@@ -133,9 +133,9 @@ class HolidaysCalendar:
 							holiday_type, holiday_description = [x.strip() for x in day.attrs["aria-label"].split(":")]
 
 							# add holiday to list
-							holidays.append(dict(province_name=prov_name,
+							holidays.append(dict(province_name=prov_name.lower(),
 												 province_cod=prov_code,
-												 local_name=local_name,
+												 local_name=local_name.lower(),
 												 local_cod=local_code,
 												 date=date,
 												 type=holiday_type,
