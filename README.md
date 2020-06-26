@@ -16,7 +16,7 @@ The module already includes the holidays for 2020 cashed into it.If you want to 
 ```python
 from pyvacas import HolidaysCalendar
 
-cal = HolidaysCalendar
+cal = HolidaysCalendar()
 holidays = cal.load_holidays(re_scrape=True)
 ```
 
@@ -26,6 +26,6 @@ holidays = cal.load_holidays(re_scrape=True)
 ```python
 from pyvacas import HolidaysCalendar
 
-cal = HolidaysCalendar
+cal = HolidaysCalendar()
 holidays = cal.get_holidays()
 ```
