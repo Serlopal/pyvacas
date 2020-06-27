@@ -17,10 +17,6 @@ class HolidaysCalendar:
 		self.municipalities_dropdown = "provinciasLocalidades"
 		self.html_session = HTMLSession()
 
-		# **************************************************************************************************
-		# *********************************		 CACHE		************************************************
-		# **************************************************************************************************
-
 		self.cache_path = os.path.join(package_directory, "cache")
 
 		self.endpoint_path = os.path.join(self.cache_path, "endpoint.pkl")
@@ -35,9 +31,15 @@ class HolidaysCalendar:
 		self.holidays_ready = False
 		self.holidays = None
 
-		self.check_cache_ready()
+		self._check_cache_ready()
 
-	def cache(name):
+	def _cache(name):
+		"""
+		decorator that will save the result of the function it wraps in the cache as a pickle file.
+		:param name: name of the file to be saved in the cache
+
+		"""
+
 		def _decorator(f):
 			def wrapper(self, *args, **kwargs):
 				f(self, *args, **kwargs)
@@ -53,7 +55,11 @@ class HolidaysCalendar:
 
 		return _decorator
 
-	def scrape_if_not_ready(*required):
+	def _scrape_if_not_ready(*required):
+		"""
+		decorator that will wrap methods that use cache resources and rescrape them if not available.
+		:param required: list of resources required by the wrapped function
+		"""
 		def _decorator(f):
 			def wrapper(self, *args, **kwargs):
 				for req in required:
@@ -68,18 +74,19 @@ class HolidaysCalendar:
 		return _decorator
 
 	@property
-	def scraping_ready(self):
+	def _scraping_ready(self):
 		"""
-		Checks we have found the URL of the endpoint and the province-municipality combos available
+		Checks we have found the URL of the endpoint and the province-municipality combos available.
+		These two resources are necessary to start scraping the holiday data.
 		"""
 		return self.endpoint_ready and self.locations_ready
 
-	def check_cache_ready(self):
+	def _check_cache_ready(self):
 		"""
-		Checks the availability of:
+		Checks the availability in the cache of:
 			- the endpoint URL
 			- the province-municipality combinations for the endpoint
-			- the full holiday cache
+			- the full holiday data
 		"""
 		# check real endpoint URL is stored in disk
 		if os.path.exists(self.endpoint_path):
@@ -96,15 +103,22 @@ class HolidaysCalendar:
 			self.holidays_ready = True
 			self.holidays = pd.read_pickle(self.holidays_path)
 
-	@cache("endpoint")
+	@_cache("endpoint")
 	def scrape_endpoint(self):
+		"""
+
+		:return:
+		"""
 		soup = BeautifulSoup(self.html_session.get(self.base_url).text, 'html.parser')
 		action = soup.find('form', id=self.municipalities_dropdown).get('action')
 		real_url = soup.find("base")["href"]
 		self.endpoint = "{}{}".format(real_url, action)
 
-	@cache("locations")
+	@_cache("locations")
 	def scrape_locations(self):
+		"""
+		Scrapes all available province-municipality combinations .
+		"""
 		soup = BeautifulSoup(self.html_session.get(self.base_url).text, 'html.parser')
 		# get all province ids available
 		provinces_ids = [x["value"] for x in soup.find("select", id="Provincia").findChildren("option", recursive=False)]
@@ -131,8 +145,12 @@ class HolidaysCalendar:
 
 		self.locations = d
 
-	@cache("holidays")
+	@_cache("holidays")
 	def scrape_holidays(self, verbose=True):
+		"""
+		Scrapes all available holiday data for all locations.
+		:param verbose: if True, the municipality being scrapped will be printed
+		"""
 		holidays = []
 		for prov, municipalities in self.locations.items():
 			for mun in municipalities:
@@ -156,11 +174,20 @@ class HolidaysCalendar:
 						# only holidays have an extra inner span to add coloring tags
 						day_span = day.findChild("span")
 						if day_span:
-							holidays.append(self.format_holiday(day_span.get_text(), i+1, prov, mun, day.attrs["aria-label"]))
+							holidays.append(self._format_holiday(day_span.get_text(), i + 1, prov, mun, day.attrs["aria-label"]))
 		# save holidays to data-frame
 		self.holidays = pd.DataFrame(holidays)
 
-	def format_holiday(self, day, month, province, municipality, description):
+	def _format_holiday(self, day, month, province, municipality, description):
+		"""
+		function that receives scrapped data and formats it into a dictionary representing all info for a holiday
+		:param day: day of the month
+		:param month: month of the year
+		:param province: province id containing the province name and code
+		:param municipality: municipality id containing the municipality name and code
+		:param description: description of the holiday
+		:return: dictionary with the final holiday description
+		"""
 		date = datetime.strptime("{} {} {}".format(day, month, self.current_year), "%d %m %Y")
 		# extract province code and name
 		prov_code, prov_name = (x.strip() for x in province.split("#"))
@@ -178,12 +205,22 @@ class HolidaysCalendar:
 					type=holiday_type,
 					description=holiday_description)
 
-	@scrape_if_not_ready("endpoint", "locations")
+	@_scrape_if_not_ready("endpoint", "locations")
 	def get_locations(self):
+		"""
+		Returns a dictionary that contains all availables municipalities for each available province
+		"""
 		return self.locations
 
-	@scrape_if_not_ready("endpoint", "locations", "holidays")
-	def get_holidays(self, provinces=None, municipalities=None, scrape_it=False):
+	@_scrape_if_not_ready("endpoint", "locations", "holidays")
+	def get_holidays(self, provinces=None, municipalities=None):
+		"""
+		Returns a pandas DataFrame containing all available holiday info if no arguments are specified,
+		or holiday info for the required locations in case a filter is specified.
+		:param provinces: list or string containing one or multiple provinces to get holidays for
+		:param municipalities: list or string containing one or multiple municipalities to get holidays for
+		:return: pandas DataFrame with holiday data
+		"""
 
 		filtered_holidays = self.holidays.copy()
 		# **********	province filter		**********
