@@ -8,7 +8,7 @@ def calendar(request):
 
 
 def test_all_provinces(calendar):
-	assert len(set(calendar.list_provinces())) >= 52
+	assert len(set(calendar.get_locations().keys())) >= 52
 
 
 def test_unique_province_name_code_pairs(calendar):
