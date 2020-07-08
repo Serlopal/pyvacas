@@ -1,5 +1,5 @@
 import pytest
-import pyvacas
+import pyvacas.pyvacas as pyvacas
 
 
 @pytest.fixture(scope='session', autouse=True)

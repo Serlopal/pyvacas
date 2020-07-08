@@ -1,4 +1,4 @@
-from pyvacas import HolidaysCalendar
+from pyvacas.pyvacas import HolidaysCalendar
 
 
 if __name__ == "__main__":
@@ -8,6 +8,6 @@ if __name__ == "__main__":
 
 	holidays = cal.get_holidays(municipalities="ponferrada")
 
-	cal.re_scrape_data()
+	# cal.re_scrape_data()
 
 	print(holidays.head(5).to_string())

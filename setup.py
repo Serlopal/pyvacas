@@ -12,9 +12,8 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Serlopal/pyvacas",
-    packages=setuptools.find_packages(),
+    packages=["pyvacas"], #setuptools.find_packages(),
     package_data={"cache": ["endpoint.pkl", "holidays.pkl", "locations.pkl"]},
-    py_modules=["pyvacas"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

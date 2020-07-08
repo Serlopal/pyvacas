@@ -14,7 +14,7 @@ class HolidaysCalendar:
 	def __init__(self):
 		self._base_url = "http://www.seg-social.es/wps/portal/wss/internet/CalendarioLaboral"
 		self._current_year = datetime.now().year
-		self._lcations_dropdown_html = "provinciasLocalidades"
+		self._locations_dropdown_html = "provinciasLocalidades"
 		self._html_session = HTMLSession()
 
 		self._cache_path = os.path.join(package_directory, "cache")
@@ -110,7 +110,7 @@ class HolidaysCalendar:
 		:return:
 		"""
 		soup = BeautifulSoup(self._html_session.get(self._base_url).text, 'html.parser')
-		action = soup.find('form', id=self._lcations_dropdown_html).get('action')
+		action = soup.find('form', id=self._locations_dropdown_html).get('action')
 		real_url = soup.find("base")["href"]
 		self._endpoint = "{}{}".format(real_url, action)
 

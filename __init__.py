@@ -1,1 +1,1 @@
-from .pyvacas import HolidaysCalendar
+from .pyvacas.pyvacas import HolidaysCalendar
