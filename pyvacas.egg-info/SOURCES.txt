@@ -1,6 +1,0 @@
-README.md
-setup.py
-pyvacas.egg-info/PKG-INFO
-pyvacas.egg-info/SOURCES.txt
-pyvacas.egg-info/dependency_links.txt
-pyvacas.egg-info/top_level.txt
