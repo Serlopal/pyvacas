@@ -1,4 +1,4 @@
-from pyvacas.pyvacas import HolidaysCalendar
+from pyvacas import HolidaysCalendar
 
 
 if __name__ == "__main__":

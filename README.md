@@ -30,7 +30,7 @@ pip install -r requirements.txt
 You can fetch all available holidays for Spain using ```get_holidays``` without any extra arguments
 
 ```python
-from pyvacas.pyvacas import HolidaysCalendar
+from pyvacas import HolidaysCalendar
 
 cal = HolidaysCalendar()
 holidays = cal.get_holidays()
@@ -40,7 +40,7 @@ Or check out available provinces and municipalities using ```list_provinces``` o
 ```get_holidays``` to retrieve only the holidays for the desired locations.
 
 ```python
-from pyvacas.pyvacas import HolidaysCalendar
+from pyvacas import HolidaysCalendar
 
 cal = HolidaysCalendar()
 holidays = cal.get_holidays(provinces="Madrid")
@@ -55,7 +55,7 @@ the program will automatically start scrapping the data from the web. In case th
 this can be done using the ```re_scrape_data``` method.
 
 ```python
-from pyvacas.pyvacas import HolidaysCalendar
+from pyvacas import HolidaysCalendar
 
 cal = HolidaysCalendar()
 cal.re_scrape_data()
