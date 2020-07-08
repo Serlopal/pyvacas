@@ -10,7 +10,7 @@ You can install the module using
 pip install git+https://github.com/Serlopal/pyvacas.git
 ```
 
-Alternatively, if you'd rather use the moduel from your local project folder, you can just clone the repo and 
+Alternatively, if you'd rather use the module from your local project folder, you can just clone the repo and 
 make sure you install the Python dependencies with
 
 ```
