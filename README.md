@@ -4,14 +4,21 @@ A lightweight module that provides easy access to all national, regional and loc
 
 ## Installation
 
-You can install the module using
+[comment]: <>You can install the module using
 
+[comment]: <>```
+[comment]: <>pip install git+https://github.com/Serlopal/pyvacas.git
+[comment]: <>```
+
+Clone the repo to your working directory with
 ```
-pip install git+https://github.com/Serlopal/pyvacas.git
+git clone https://github.com/Serlopal/pyvacas.git
 ```
 
-Alternatively, if you'd rather use the module from your local project folder, you can just clone the repo and 
-make sure you install the Python dependencies with
+[comment]: <>Alternatively, if you'd rather use the module from your local project folder, you can just clone the repo and 
+[comment]: <>make sure you install the Python dependencies with
+
+And install the dependencies with:
 
 ```
 pip install -r requirements.txt
@@ -23,7 +30,7 @@ pip install -r requirements.txt
 You can fetch all available holidays for Spain using ```get_holidays``` without any extra arguments
 
 ```python
-from pyvacas import HolidaysCalendar
+from pyvacas.pyvacas import HolidaysCalendar
 
 cal = HolidaysCalendar()
 holidays = cal.get_holidays()
@@ -33,7 +40,7 @@ Or check out available provinces and municipalities using ```list_provinces``` o
 ```get_holidays``` to retrieve only the holidays for the desired locations.
 
 ```python
-from pyvacas import HolidaysCalendar
+from pyvacas.pyvacas import HolidaysCalendar
 
 cal = HolidaysCalendar()
 holidays = cal.get_holidays(provinces="Madrid")
@@ -48,7 +55,7 @@ the program will automatically start scrapping the data from the web. In case th
 this can be done using the ```re_scrape_data``` method.
 
 ```python
-from pyvacas import HolidaysCalendar
+from pyvacas.pyvacas import HolidaysCalendar
 
 cal = HolidaysCalendar()
 cal.re_scrape_data()
