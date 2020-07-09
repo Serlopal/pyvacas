@@ -4,19 +4,11 @@ A lightweight module that provides easy access to all national, regional and loc
 
 ## Installation
 
-[comment]: <>You can install the module using
-
-[comment]: <>```
-[comment]: <>pip install git+https://github.com/Serlopal/pyvacas.git
-[comment]: <>```
-
 Clone the repo to your working directory with
 ```
 git clone https://github.com/Serlopal/pyvacas.git
 ```
 
-[comment]: <>Alternatively, if you'd rather use the module from your local project folder, you can just clone the repo and 
-[comment]: <>make sure you install the Python dependencies with
 
 And install the dependencies with:
 

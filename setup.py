@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pyvacas-serlopal",
+    name="PyVacas",
     version="v0.1-alpha",
     author="Serlopal",
     author_email="oro_sergio@hotmail.com",
