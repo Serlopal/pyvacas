@@ -4,16 +4,11 @@ A lightweight module that provides easy access to all national, regional and loc
 
 ## Installation
 
-Clone the repo to your working directory with
-```
-git clone https://github.com/Serlopal/pyvacas.git
-```
-
-
-And install the dependencies with:
+Install it from TestPyPI
 
 ```
-pip install -r requirements.txt
+pip install PyVacas --extra-index-url=https://test.pypi.org/simple/
+
 ```
 
 
