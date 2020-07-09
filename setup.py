@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pyvacas-serlopal",
-    version="0.1",
+    version="v0.1-alpha",
     author="Serlopal",
     author_email="oro_sergio@hotmail.com",
     description="scrapper that provides easy access to all Spanish holidays",
